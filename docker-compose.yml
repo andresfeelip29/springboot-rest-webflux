@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: mongouser
+      MONGODB_INITDB_ROOT_PASSWORD: mongopass
+      MONGO_INITDB_DATABASE: course_webflux
+    volumes:
+      - data-mongo:/data/db
+    restart: always
+
+volumes:
+  data-mongo:
+    name: data-mongo
+
+
