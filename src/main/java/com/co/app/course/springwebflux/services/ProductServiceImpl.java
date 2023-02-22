@@ -40,7 +40,7 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Flux<ProductEntity> findAllConNombreUpperCase() {
+	public Flux<ProductEntity> findAllByNameUpperCase() {
 		return dao.findAll().map(productEntity -> {
 			productEntity.setName(productEntity.getName().toUpperCase());
 			return productEntity;
@@ -48,22 +48,22 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Flux<ProductEntity> findAllConNombreUpperCaseRepeat() {
-		return findAllConNombreUpperCase().repeat(5000);
+	public Flux<ProductEntity> findAllByNameUpperCaseRepeat() {
+		return findAllByNameUpperCase().repeat(5000);
 	}
 
 	@Override
-	public Flux<CategoryEntity> findAllCategoria() {
+	public Flux<CategoryEntity> findAllCategories() {
 		return ICategoryDao.findAll();
 	}
 
 	@Override
-	public Mono<CategoryEntity> findCategoriaById(String id) {
+	public Mono<CategoryEntity> findCategoryById(String id) {
 		return ICategoryDao.findById(id);
 	}
 
 	@Override
-	public Mono<CategoryEntity> saveCategoria(CategoryEntity categoryEntity) {
+	public Mono<CategoryEntity> saveCategory(CategoryEntity categoryEntity) {
 		return ICategoryDao.save(categoryEntity);
 	}
 

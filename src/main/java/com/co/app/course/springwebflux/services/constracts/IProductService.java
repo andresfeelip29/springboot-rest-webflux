@@ -10,9 +10,9 @@ public interface IProductService {
 	
 	public Flux<ProductEntity> findAll();
 	
-	public Flux<ProductEntity> findAllConNombreUpperCase();
+	public Flux<ProductEntity> findAllByNameUpperCase();
 	
-	public Flux<ProductEntity> findAllConNombreUpperCaseRepeat();
+	public Flux<ProductEntity> findAllByNameUpperCaseRepeat();
 	
 	public Mono<ProductEntity> findById(String id);
 	
@@ -20,10 +20,10 @@ public interface IProductService {
 	
 	public Mono<Void> delete(ProductEntity productEntity);
 	
-	public Flux<CategoryEntity> findAllCategoria();
+	public Flux<CategoryEntity> findAllCategories();
+
+	public Mono<CategoryEntity> findCategoryById(String id);
 	
-	public Mono<CategoryEntity> findCategoriaById(String id);
-	
-	public Mono<CategoryEntity> saveCategoria(CategoryEntity categoryEntity);
+	public Mono<CategoryEntity> saveCategory(CategoryEntity categoryEntity);
 
 }

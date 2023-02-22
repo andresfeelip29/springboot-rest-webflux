@@ -37,6 +37,7 @@ public class ProductEntity {
     private Date createAt;
 
     @Valid
+    @NotNull
     @Setter @Getter
     private CategoryEntity category;
 

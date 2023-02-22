@@ -40,7 +40,7 @@ public class SpringbootRestWebFluxApplication implements CommandLineRunner {
 		CategoryEntity muebles = new CategoryEntity("Muebles");
 
 		Flux.just(electronico, deporte, computacion, muebles)
-				.flatMap(service::saveCategoria)
+				.flatMap(service::saveCategory)
 				.doOnNext(c ->{
 					log.info("Categoria creada: " + c.getName() + ", Id: " + c.getId());
 				}).thenMany(

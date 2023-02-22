@@ -20,6 +20,7 @@ public class CategoryEntity {
 	private String id;
 
 	@Setter @Getter
+	@NotEmpty
 	private String name;
 
 	public CategoryEntity(){
