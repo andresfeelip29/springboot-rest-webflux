@@ -13,59 +13,64 @@ import reactor.core.publisher.Mono;
 @Service
 public class ProductServiceImpl implements IProductService {
 
-	@Autowired
-	private IProductDao dao;
-	
-	@Autowired
-	private ICategoryDao ICategoryDao;
-	
-	@Override
-	public Flux<ProductEntity> findAll() {
-		return dao.findAll();
-	}
 
-	@Override
-	public Mono<ProductEntity> findById(String id) {
-		return dao.findById(id);
-	}
+    private final IProductDao productDao;
 
-	@Override
-	public Mono<ProductEntity> save(ProductEntity productEntity) {
-		return dao.save(productEntity);
-	}
+    private final ICategoryDao categoryDao;
 
-	@Override
-	public Mono<Void> delete(ProductEntity productEntity) {
-		return dao.delete(productEntity);
-	}
+    @Autowired
+    public ProductServiceImpl(IProductDao productDao, ICategoryDao categoryDao) {
+        this.productDao = productDao;
+        this.categoryDao = categoryDao;
+    }
 
-	@Override
-	public Flux<ProductEntity> findAllByNameUpperCase() {
-		return dao.findAll().map(productEntity -> {
-			productEntity.setName(productEntity.getName().toUpperCase());
-			return productEntity;
-		});
-	}
+    @Override
+    public Flux<ProductEntity> findAll() {
+        return productDao.findAll();
+    }
 
-	@Override
-	public Flux<ProductEntity> findAllByNameUpperCaseRepeat() {
-		return findAllByNameUpperCase().repeat(5000);
-	}
+    @Override
+    public Mono<ProductEntity> findById(String id) {
+        return productDao.findById(id);
+    }
 
-	@Override
-	public Flux<CategoryEntity> findAllCategories() {
-		return ICategoryDao.findAll();
-	}
+    @Override
+    public Mono<ProductEntity> save(ProductEntity productEntity) {
+        return productDao.save(productEntity);
+    }
 
-	@Override
-	public Mono<CategoryEntity> findCategoryById(String id) {
-		return ICategoryDao.findById(id);
-	}
+    @Override
+    public Mono<Void> delete(ProductEntity productEntity) {
+        return productDao.delete(productEntity);
+    }
 
-	@Override
-	public Mono<CategoryEntity> saveCategory(CategoryEntity categoryEntity) {
-		return ICategoryDao.save(categoryEntity);
-	}
+    @Override
+    public Flux<ProductEntity> findAllByNameUpperCase() {
+        return productDao.findAll().map(productEntity -> {
+            productEntity.setName(productEntity.getName().toUpperCase());
+            return productEntity;
+        });
+    }
+
+    @Override
+    public Flux<ProductEntity> findAllByNameUpperCaseRepeat() {
+        return findAllByNameUpperCase().repeat(5000);
+    }
+
+    @Override
+    public Flux<CategoryEntity> findAllCategories() {
+        return categoryDao.findAll();
+    }
+
+    @Override
+    public Mono<CategoryEntity> findCategoryById(String id) {
+        return categoryDao.findById(id);
+    }
+
+    @Override
+    public Mono<CategoryEntity> saveCategory(CategoryEntity categoryEntity) {
+        return categoryDao.save(categoryEntity);
+    }
 
 
 }

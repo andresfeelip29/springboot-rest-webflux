@@ -16,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,8 +27,12 @@ import java.util.UUID;
 public class ProductController {
 
 
+    private final IProductService productService;
+
     @Autowired
-    private IProductService productService;
+    public ProductController(IProductService productService) {
+        this.productService = productService;
+    }
 
     @Value("${config.uploads.path}")
     private String path;
@@ -57,7 +60,8 @@ public class ProductController {
                             .replace(" ", "")
                             .replace(":", "")
                             .replace("\\", ""));
-                    return file.transferTo(new File(path + productEntity.getPhoto())).then(this.productService.save(productEntity));
+                    return file.transferTo(new File(path + productEntity.getPhoto()))
+                            .then(this.productService.save(productEntity));
                 }).map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
@@ -94,7 +98,7 @@ public class ProductController {
             return productService.save(product).map(productEntity -> {
                 response.put("data", product);
                 response.put("message", "product successfully created");
-                response.put("status",HttpStatus.CREATED.value());
+                response.put("status", HttpStatus.CREATED.value());
                 response.put("timestamp", LocalDateTime.now());
                 return ResponseEntity.status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +114,7 @@ public class ProductController {
                     .flatMap(rta -> {
                         response.put("erros", rta);
                         response.put("message", "error creating product");
-                        response.put("status",HttpStatus.BAD_REQUEST.value());
+                        response.put("status", HttpStatus.BAD_REQUEST.value());
                         response.put("timestamp", LocalDateTime.now());
                         return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON).body(response));
                     });
