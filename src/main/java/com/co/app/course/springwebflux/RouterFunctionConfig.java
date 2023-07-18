@@ -20,6 +20,10 @@ public class RouterFunctionConfig {
         return RouterFunctions.route(RequestPredicates.GET("api/v2/product")
                         .or(RequestPredicates.GET("api/v3/product")), handler::listProducts)
                 .andRoute(RequestPredicates.GET("api/v2/product/{id}").and(contentType(MediaType.APPLICATION_JSON)), handler::detailProduct)
-                .andRoute(RequestPredicates.POST("api/v2/product/create"), handler::create);
+                .andRoute(RequestPredicates.POST("api/v2/product/create"), handler::create)
+                .andRoute(RequestPredicates.PUT("api/v2/product/{id}"), handler::update)
+                .andRoute(RequestPredicates.DELETE("api/v2/product/{id}"), handler::delete)
+                .andRoute(RequestPredicates.POST("api/v2/product/upload/{id}"), handler::uploadImage)
+                .andRoute(RequestPredicates.POST("api/v2/product/createWithPhoto"), handler::createWithPhoto);
     }
 }
