@@ -72,5 +72,12 @@ public class ProductServiceImpl implements IProductService {
         return categoryDao.save(categoryEntity);
     }
 
-
+    @Override
+    public Mono<ProductEntity> findByName(String name) {
+        return this.productDao.findByName(name);
+    }
+    @Override
+    public Mono<CategoryEntity> findCategoryByName(String name) {
+        return this.categoryDao.findByName(name);
+    }
 }
